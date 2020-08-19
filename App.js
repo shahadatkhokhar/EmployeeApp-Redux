@@ -8,20 +8,52 @@ import Contants from "expo-constants"
 import Home from "./Screens/Home"
 import CreateEmployee from './Screens/CreateEmployee'
 import Profile from "./Screens/Profile"
-export default function App() {
+import {NavigationContainer} from '@react-navigation/native'
+import {createStackNavigator} from '@react-navigation/stack'
+
+const Stack = createStackNavigator();
+const screenoptions = {
+          title:"Home",
+          headerTintColor:"white",
+          headerStyle:{
+            backgroundColor:'#e81a0c'
+          }
+}
+
+function App() {
   return (
     <View style={styles.container}>
-      <Profile/>
-      <StatusBar style="auto" />
+        <Stack.Navigator>
+        <Stack.Screen 
+        name="Home" 
+        component={Home} 
+        options={screenoptions}/>
+        <Stack.Screen 
+        name="Create" 
+        component={CreateEmployee}
+        options={{...screenoptions,title:'Create Employee'}}/>
+        <Stack.Screen 
+        name="Profile" 
+        component={Profile}
+        options={{...screenoptions, title:"Profile"}} />
+    </Stack.Navigator>
+    <StatusBar style="auto" />
     </View>
   );
+}
+
+export default ()=>{
+  return(
+    <NavigationContainer>
+      <App/>
+    </NavigationContainer>
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#e8e8e8',
-    marginTop:Contants.statusBarHeight,
     
   },
 });

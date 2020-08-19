@@ -9,46 +9,47 @@ Image
 } from 'react-native'
 import {Card,FAB} from 'react-native-paper'
 
-const renderList = ((item)=>{
-    return(
-      <Card style={styles.mycard}>
-      <View style={styles.cardView}>
-           <Image
-          style={{width:60,height:60,borderRadius:30}}
-          source={{uri:"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.shutterstock.com%2Fblog%2Ftake-pictures-moon&psig=AOvVaw3cEqAsOi1RUC6CcA9CSQmF&ust=1596882212498000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCIjlovvviOsCFQAAAAAdAAAAABAD"}}
-          
-          />
-          <View style={{marginLeft:10}}>
-              <Text style={styles.text}>{item.name}</Text>   
-               <Text style={styles.text}>{item.position}</Text>      
-          </View>
-     
-      </View>
-      
-     </Card>
-    )
-})
-const Home=()=>{
+
+const Home=({navigation})=>{
     const data = [
-        {id:1,name:"Mukesh",position:"web dev"},
-        {id:2,name:"bhukesh",position:"web dev2"},
-        {id:3,name:"pukesh",position:"web dev3"},
-        {id:4,name:"Thukesh",position:"web dev4"},
-        {id:5,name:"Thukesh",position:"web dev4"},
-        {id:6,name:"Thukesh",position:"web dev4"},
-        {id:7,name:"Thukesh",position:"web dev4"},
-        {id:8,name:"Thukesh",position:"web dev4"},
-    ]
+        {id:"1",name:"Rob",email:"Rob@abc.com",salary:"12 LPA",phone:"123",position:"Web Dev",picture:"https://images.unsplash.com/photo-1551712702-4b7335dd8706?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"},
+        {id:"2",name:"Robin Soe",email:"robin@abc.com",salary:"10 LPA",phone:"456",position:"Android Dev",picture:"https://images.unsplash.com/photo-1551712702-4b7335dd8706?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"},
+        {id:"3",name:"Stacy Finnigan",email:"Stacy@abc.com",salary:"13 LPA",phone:"2004",position:"Linux Expert",picture:"https://images.unsplash.com/photo-1551712702-4b7335dd8706?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"},
+
+         ]
+
+    const renderList = ((item)=>{
+        return(
+        <Card 
+        style={styles.mycard}
+        onPress={()=>navigation.navigate('Profile',{item})}>
+        <View style={styles.cardView}>
+            <Image
+            style={{width:60,height:60,borderRadius:30}}
+            source={{uri:item.picture}}
+            
+            />
+            <View style={{marginLeft:10}}>
+                <Text style={styles.text}>{item.name}</Text>   
+                <Text style={styles.text}>{item.position}</Text>      
+            </View>
+        
+        </View>
+        
+        </Card>
+        )
+    })
     return(
-        <View>
+        <View style = {{flex:1}}>
             <FlatList 
                 data = {data}
                 renderItem={({item})=>{
                    return renderList(item)
                 }}
-                keyExtractor={item=>`${item.id}`}
+                keyExtractor={item=>item.id}
             />
-            <FAB
+            <FAB 
+            onPress = {()=>navigation.navigate('Create')}
             style={styles.fab}
           small={false}
           icon="plus"
@@ -58,7 +59,6 @@ const Home=()=>{
               }
 
           }}
-          onPress={() => console.log('Pressed')}
              />
 
         </View>

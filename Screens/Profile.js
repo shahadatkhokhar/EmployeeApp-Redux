@@ -3,7 +3,9 @@ import { StyleSheet, Text, View, Image,Linking,Platform } from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient'
 import {Title, Card, Button} from 'react-native-paper'
 import {MaterialIcons,Entypo,} from '@expo/vector-icons'
-const Profile =()=>{
+const Profile =(props)=>{
+
+    const {id,name,email,salary,phone,position,picture} = props.route.params.item
 
     const openDial=()=>{
         if(Platform.OS==='android'){
@@ -21,31 +23,31 @@ const Profile =()=>{
             />
             <View style = {{alignItems:'center'}}>
             <Image style={{width:140,height:140, borderRadius:140/2,marginTop:-70}}
-            source= {{uri:"https://images.unsplash.com/photo-1551712702-4b7335dd8706?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"}}
+            source= {{uri:picture}}
             />
             </View>
             <View style = {{alignItems:'center',margin:15}}>
-                <Title>Stacy Finnigan</Title>
-                <Text style = {{fontSize:18}}>Linux Expert</Text>
+                <Title>{name}</Title>
+                <Text style = {{fontSize:18}}>{position}</Text>
             </View>
             <Card style={styles.mycard} onPress={()=>{
-                Linking.openURL("mailto:abc@abc.com")
+                Linking.openURL("mailto:"+{email})
             }}>
                 <View style={styles.cardContent}>
                     <MaterialIcons name="email" size={32} color='red'/>
-                    <Text style = {styles.mytext}>abc@abc.com</Text>
+                    <Text style = {styles.mytext}>{email}</Text>
                 </View>
             </Card>
             <Card style={styles.mycard} onPress={()=>openDial()}>
                 <View style={styles.cardContent}>
                     <Entypo name="phone" size={32} color='red'/>
-                    <Text style = {styles.mytext}>1234567</Text>
+                    <Text style = {styles.mytext}>{phone}</Text>
                 </View>
             </Card>
             <Card style={styles.mycard}>
                 <View style={styles.cardContent}>
                     <MaterialIcons name="attach-money" size={32} color='red'/>
-                    <Text style = {styles.mytext}>12 LPA</Text>
+                    <Text style = {styles.mytext}>{salary}</Text>
                 </View>
             </Card>
             <View style={{flexDirection:'row', justifyContent:'space-around',padding:10}}>
