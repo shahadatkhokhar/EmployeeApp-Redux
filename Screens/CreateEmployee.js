@@ -145,7 +145,6 @@ const CreateEmployee=({navigation, route})=>{
             body:data
         }).then(res=>res.json()).
         then(data=>{
-            console.log(data)
             setPicture(data.url)
             setModal(false)
         })

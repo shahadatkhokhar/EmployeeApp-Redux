@@ -10,18 +10,26 @@ Alert
 
 } from 'react-native'
 import {Card,FAB} from 'react-native-paper'
+import {useSelector,useDispatch} from 'react-redux'
+import { State } from 'react-native-gesture-handler'
 
 
 const Home=({navigation})=>{
-    const [data,setData] = useState([])
-    const [loading,setLoading] = useState(true)
+    //const [data,setData] = useState([])
+    //const [loading,setLoading] = useState(true)
+    const displatch = useDispatch()
+    const {data,loading} = useSelector((state)=>{
+        return state
+    })
 
     const fetchData =()=>{
         fetch('http://8fc21454c733.ngrok.io')
         .then(res=>res.json())
         .then(results=>{
-            setData(results)
-            setLoading(false)
+            //setData(results)
+            //setLoading(false)
+            displatch({type:"ADD_DATA",payload:results})
+            displatch({type:"SET_LOADING",payload:false})
         }).catch(err=>{
             Alert.alert('Something went wrong')
         })

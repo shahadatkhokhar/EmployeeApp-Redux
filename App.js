@@ -11,6 +11,13 @@ import Profile from "./Screens/Profile"
 import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
 
+import {createStore} from 'redux'
+import {Provider} from 'react-redux'
+import {reducer} from './reducres/reducer'
+
+const store = createStore(reducer)
+
+
 const Stack = createStackNavigator();
 const screenoptions = {
           title:"Home",
@@ -44,9 +51,11 @@ function App() {
 
 export default ()=>{
   return(
+    <Provider store = {store}>
     <NavigationContainer>
       <App/>
     </NavigationContainer>
+    </Provider>
   )
 }
 
